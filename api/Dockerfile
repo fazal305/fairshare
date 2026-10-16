@@ -1,6 +1,8 @@
 FROM dunglas/frankenphp:1-php8.4-bookworm
 
 RUN install-php-extensions pdo_mysql pdo_pgsql gd exif opcache zip pcntl
+# Render refuses to exec binaries that carry file capabilities; we listen on 8080, so it isn't needed.
+RUN setcap -r /usr/local/bin/frankenphp
 
 ENV COMPOSER_ALLOW_SUPERUSER=1 \
     PHP_INI_SCAN_DIR=":/usr/local/etc/php/app.d"
