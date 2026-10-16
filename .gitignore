@@ -1,0 +1,6 @@
+.claude/
+.dev-credentials
+test-results/
+playwright-report/
+.lighthouseci/
+*.local
