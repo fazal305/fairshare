@@ -5,3 +5,6 @@ playwright-report/
 .lighthouseci/
 *.local
 .deploy-*
+
+.vercel
+.env.local
