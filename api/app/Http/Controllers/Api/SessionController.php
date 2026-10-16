@@ -47,8 +47,9 @@ class SessionController extends Controller
             if ($taken->count() >= self::MAX_PARTICIPANTS) {
                 throw ValidationException::withMessages(['nickname' => 'This bill already has the maximum number of people.']);
             }
-            if ($taken->contains(fn ($p) => mb_strtolower($p->nickname) === mb_strtolower($nickname))) {
-                throw ValidationException::withMessages(['nickname' => "Someone called \"{$nickname}\" has already joined. Add an initial to tell you apart."]);
+            $clash = $taken->first(fn ($p) => mb_strtolower($p->nickname) === mb_strtolower($nickname));
+            if ($clash) {
+                throw ValidationException::withMessages(['nickname' => "Someone called \"{$clash->nickname}\" has already joined. Add an initial to tell you apart."]);
             }
 
             $participant = $bill->participants()->create([

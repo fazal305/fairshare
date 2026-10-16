@@ -1,0 +1,178 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/fraunces/opsz.css';
+@import '@fontsource-variable/figtree';
+
+/* Receipt paper & ink: warm paper, dark ink, one paprika accent. */
+:root {
+  --paper: #faf6ee;
+  --surface: #ffffff;
+  --sunk: #f3ede2;
+  --ink: #1e1a16;
+  --muted: #645b51;
+  --line: #e4dbcc;
+  --accent: #b4441e;
+  --accent-ink: #ffffff;
+  --accent-soft: #f7e4d9;
+  --accent-text: #9c3816;
+  --paid: #2c6a3d;
+  --paid-soft: #e1efe3;
+  --pending: #855000;
+  --pending-soft: #fbeed6;
+  --danger: #b42318;
+  --danger-soft: #fdeceb;
+  --focus: #1d5fd1;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #171411;
+    --surface: #211d19;
+    --sunk: #1b1815;
+    --ink: #f3ede4;
+    --muted: #b8ad9f;
+    --line: #3b342d;
+    --accent: #f08a5d;
+    --accent-ink: #1e1209;
+    --accent-soft: #3a2419;
+    --accent-text: #f4a27c;
+    --paid: #7fcb93;
+    --paid-soft: #1d3324;
+    --pending: #f0bd6a;
+    --pending-soft: #362813;
+    --danger: #ff8f84;
+    --danger-soft: #3b1c19;
+    --focus: #8ab4ff;
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-sunk: var(--sunk);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-text: var(--accent-text);
+  --color-paid: var(--paid);
+  --color-paid-soft: var(--paid-soft);
+  --color-pending: var(--pending);
+  --color-pending-soft: var(--pending-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --font-display: 'Fraunces Variable', Georgia, serif;
+  --font-sans: 'Figtree Variable', system-ui, sans-serif;
+}
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+  -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--paper);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-wrap: break-word;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Torn-receipt bottom edge used on bill cards. */
+.receipt-edge {
+  --tooth: 10px;
+  mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / calc(var(--tooth) * 2) 100%;
+  padding-bottom: calc(var(--tooth) + 0.5rem);
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--sunk) 0%, var(--line) 50%, var(--sunk) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+  border-radius: 8px;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+.rise {
+  animation: rise 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.prose-legal h1 {
+  font-size: 2.25rem;
+  font-weight: 600;
+}
+.prose-legal h2 {
+  margin-top: 2rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+.prose-legal p,
+.prose-legal ul {
+  margin-top: 0.75rem;
+  color: var(--ink);
+}
+.prose-legal ul {
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+.prose-legal li + li {
+  margin-top: 0.5rem;
+}
+.prose-legal .lead {
+  font-size: 1.15rem;
+  color: var(--muted);
+}
+.prose-legal a {
+  color: var(--accent-text);
+  font-weight: 600;
+}

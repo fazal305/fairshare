@@ -45,8 +45,8 @@ return [
         'driver' => env('RECEIPT_READER', 'openrouter'),
         'api_key' => env('AI_API_KEY'),
         'base_url' => env('AI_BASE_URL', 'https://openrouter.ai/api/v1'),
-        'models' => env('AI_MODEL', 'qwen/qwen3.8-27b:free,google/gemma-4-31b-it:free'),
-        'timeout' => (int) env('AI_TIMEOUT', 25),
+        'models' => env('AI_MODEL', 'nvidia/nemotron-3.5-super-vl:free,google/gemma-4-31b-it:free,google/gemma-4-26b-a4b-it:free'),
+        'timeout' => (int) env('AI_TIMEOUT', 40),
     ],
 
     'frontend_url' => rtrim(explode(',', (string) env('FRONTEND_URL', 'http://localhost:5480'))[0], '/'),

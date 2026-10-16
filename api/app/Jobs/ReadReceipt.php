@@ -18,7 +18,7 @@ class ReadReceipt implements ShouldQueue
 
     public int $tries = 1;
 
-    public int $timeout = 60;
+    public int $timeout = 90;
 
     public function __construct(public Bill $bill) {}
 
