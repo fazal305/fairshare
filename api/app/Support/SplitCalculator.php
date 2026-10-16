@@ -36,6 +36,7 @@ class SplitCalculator
             ));
             if ($claimants === []) {
                 $unclaimed[] = $itemId;
+
                 continue;
             }
             usort($claimants, fn ($a, $b) => $known[$a] <=> $known[$b]);

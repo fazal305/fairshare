@@ -9,7 +9,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Participant extends Model
 {
     public const PENDING = 'pending';
+
     public const AWAITING = 'awaiting_confirmation';
+
     public const COMPLETED = 'completed';
 
     protected $table = 'bill_participants';
