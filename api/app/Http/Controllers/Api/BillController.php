@@ -196,7 +196,7 @@ class BillController extends Controller
     {
         $this->authorizeHost($request, $bill);
         if ($bill->receipt_path) {
-            Storage::disk('local')->delete($bill->receipt_path);
+            Storage::disk(config('filesystems.receipt_disk'))->delete($bill->receipt_path);
         }
         $bill->delete();
 
@@ -206,9 +206,9 @@ class BillController extends Controller
     public function receipt(Request $request, Bill $bill): StreamedResponse
     {
         $this->authorizeHost($request, $bill);
-        abort_unless($bill->receipt_path && Storage::disk('local')->exists($bill->receipt_path), 404);
+        abort_unless($bill->receipt_path && Storage::disk(config('filesystems.receipt_disk'))->exists($bill->receipt_path), 404);
 
-        return Storage::disk('local')->response($bill->receipt_path, 'receipt.jpg', [
+        return Storage::disk(config('filesystems.receipt_disk'))->response($bill->receipt_path, 'receipt.jpg', [
             'Content-Type' => 'image/jpeg',
             'Cache-Control' => 'private, max-age=600',
         ]);

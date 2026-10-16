@@ -30,7 +30,7 @@ class ReadReceipt implements ShouldQueue
         }
 
         try {
-            $data = $reader->read(Storage::disk('local')->get($bill->receipt_path));
+            $data = $reader->read(Storage::disk(config('filesystems.receipt_disk'))->get($bill->receipt_path));
         } catch (ReceiptReadFailed $e) {
             $bill->update(['ocr_status' => 'failed', 'ocr_error' => $e->userMessage]);
 

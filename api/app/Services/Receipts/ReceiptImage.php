@@ -51,7 +51,7 @@ class ReceiptImage
         $path = 'receipts/'.Str::random(40).'.jpg';
         ob_start();
         imagejpeg($image, null, 85);
-        Storage::disk('local')->put($path, (string) ob_get_clean());
+        Storage::disk(config('filesystems.receipt_disk'))->put($path, (string) ob_get_clean());
 
         return $path;
     }

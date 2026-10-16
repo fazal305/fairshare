@@ -67,13 +67,15 @@ Open http://localhost:5480.
 | `AI_MODEL` | Comma-separated models to try in order |
 | `STRIPE_SECRET`, `STRIPE_WEBHOOK_SECRET` | Stripe **test-mode** keys. Leave empty to hide card payments |
 | `DB_*` | Database connection for production |
+| `RECEIPT_DISK` | Where receipt photos are kept: `local` (default) or `s3` for a private bucket. Use `s3` in production, since the container disk is wiped on redeploy |
+| `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_DEFAULT_REGION`, `AWS_BUCKET`, `AWS_ENDPOINT`, `AWS_USE_PATH_STYLE_ENDPOINT` | S3-compatible bucket for `RECEIPT_DISK=s3` (Supabase Storage or Cloudflare R2). Supabase needs `AWS_USE_PATH_STYLE_ENDPOINT=true` |
 
 The web app reads `VITE_API_URL` (the API origin) at build time; leave it empty locally.
 
 ## Tests
 
 ```bash
-cd api && php artisan test      # 27 tests: split maths, auth, upload hardening, guest isolation, payments, Stripe webhooks
+cd api && php artisan test      # 28 tests: split maths, auth, upload hardening, receipt storage, guest isolation, payments, Stripe webhooks
 cd web && npm run lint && npm run build
 ```
 

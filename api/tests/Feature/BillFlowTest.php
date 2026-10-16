@@ -132,6 +132,35 @@ class BillFlowTest extends TestCase
             ->assertJsonPath('bill.ocr_error', 'We couldn\'t read that receipt right now.');
     }
 
+    public function test_receipts_use_the_configured_disk(): void
+    {
+        config(['filesystems.receipt_disk' => 's3']);
+        Storage::fake('local');
+        Storage::fake('s3');
+        $reader = new class implements ReceiptReader
+        {
+            public string $bytes = '';
+
+            public function read(string $jpegBytes): array
+            {
+                $this->bytes = $jpegBytes;
+                throw new ReceiptReadFailed('No items.');
+            }
+        };
+        $this->app->instance(ReceiptReader::class, $reader);
+        Sanctum::actingAs($this->host());
+
+        $id = $this->postJson('/api/bills', ['receipt' => UploadedFile::fake()->image('r.jpg')])->assertCreated()->json('bill.id');
+
+        [$path] = Storage::disk('s3')->allFiles('receipts');
+        $this->assertSame([], Storage::disk('local')->allFiles());
+        $this->assertSame(Storage::disk('s3')->get($path), $reader->bytes);
+        $this->assertSame($reader->bytes, $this->get("/api/bills/$id/receipt")->assertOk()->streamedContent());
+
+        $this->deleteJson("/api/bills/$id")->assertOk();
+        Storage::disk('s3')->assertMissing($path);
+    }
+
     public function test_draft_bills_are_not_reachable_by_link(): void
     {
         Sanctum::actingAs($this->host());

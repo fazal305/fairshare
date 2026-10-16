@@ -97,7 +97,7 @@ class AuthController extends Controller
 
         $user = $request->user();
         foreach ($user->bills()->whereNotNull('receipt_path')->pluck('receipt_path') as $path) {
-            Storage::disk('local')->delete($path);
+            Storage::disk(config('filesystems.receipt_disk'))->delete($path);
         }
         $user->tokens()->delete();
         $user->delete();
