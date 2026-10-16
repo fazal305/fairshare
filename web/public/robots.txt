@@ -3,3 +3,5 @@ Allow: /
 Disallow: /s/
 Disallow: /bills
 Disallow: /settings
+
+Sitemap: https://fairshare-mauve.vercel.app/sitemap.xml

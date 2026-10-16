@@ -52,5 +52,7 @@ export function useInterval(fn, ms, enabled = true) {
 export function useDocumentTitle(title) {
   useEffect(() => {
     document.title = title ? `${title} · FairShare` : 'FairShare · Split the bill by what everyone actually ordered'
+    const canonical = document.querySelector('link[rel="canonical"]')
+    if (canonical) canonical.href = new URL(window.location.pathname, canonical.href).href
   }, [title])
 }

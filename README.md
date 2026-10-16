@@ -2,7 +2,7 @@
 
 Split a restaurant bill by what everyone actually ordered. The host photographs the receipt, FairShare reads the items, and friends open one link, type a name and tick what they had. Shared dishes are split evenly between the people who shared them, tax and service charge are split in proportion to each person's food, and the host sees who has paid.
 
-**Live demo:** not deployed yet
+**Live demo:** https://fairshare-mauve.vercel.app
 
 <p>
   <img src="docs/screenshots/guest-claim.png" alt="A guest's view: ticked items, a shared naan split between two people, and their total with tax" width="300">
