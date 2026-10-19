@@ -6,6 +6,7 @@ use App\Services\Receipts\ManualReceiptReader;
 use App\Services\Receipts\OpenRouterReceiptReader;
 use App\Services\Receipts\ReceiptReader;
 use App\Services\StripeGateway;
+use BugWatcher;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
@@ -33,6 +34,12 @@ class AppServiceProvider extends ServiceProvider
             config('services.stripe.secret'),
             config('services.stripe.webhook_secret'),
             config('services.frontend_url'),
+        ));
+
+        $this->app->singleton(BugWatcher::class, fn () => new BugWatcher(
+            key: config('services.bugwatcher.key'),
+            endpoint: config('services.bugwatcher.endpoint'),
+            environment: app()->environment('production') ? 'production' : 'staging',
         ));
     }
 

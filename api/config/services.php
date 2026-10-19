@@ -49,6 +49,11 @@ return [
         'timeout' => (int) env('AI_TIMEOUT', 40),
     ],
 
+    'bugwatcher' => [
+        'key' => env('BUGWATCHER_KEY'),
+        'endpoint' => env('BUGWATCHER_ENDPOINT', 'https://bugwatcher-pings-api.onrender.com/api/v1/ping'),
+    ],
+
     'frontend_url' => rtrim(explode(',', (string) env('FRONTEND_URL', 'http://localhost:5480'))[0], '/'),
 
 ];

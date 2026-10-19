@@ -31,4 +31,9 @@ return Application::configure(basePath: dirname(__DIR__))
                     : ($e->getMessage() ?: 'Not found.')], 404);
             }
         });
+        $exceptions->report(function (Throwable $e) {
+            if (filled(config('services.bugwatcher.key'))) {
+                app(BugWatcher::class)->captureException($e);
+            }
+        });
     })->create();
