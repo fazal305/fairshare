@@ -5,6 +5,8 @@ import App from './App'
 import { AuthProvider } from './lib/auth'
 import './index.css'
 import { init } from './lib/bugwatcher.js'
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 
 const { hostname } = window.location
 const environment = /^(localhost|127\.0\.0\.1)$/.test(hostname)
@@ -27,6 +29,8 @@ createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <AuthProvider>
         <App />
+        <Analytics />
+        <SpeedInsights />
       </AuthProvider>
     </BrowserRouter>
   </StrictMode>,
